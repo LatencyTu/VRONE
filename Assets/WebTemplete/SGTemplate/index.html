@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+
+    <title>VRONE</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style2.css">
+
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/loadProcess.js"></script>
+    <script src="js/dataProcess.js"></script>
+</head>
+<body>
+    <div id="mask"></div>
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas"></canvas>
+        <div id="unity-loading-bar">
+            <div id="title"><h1></h1></div>
+            <div id="boxProgress" style="display: none;">
+                <div id="bar">0%</div>
+                <div id="text">0%</div>
+            </div>
+            <div id="unity-logo">
+                <!-- <video id="vdMain" controls autoplay muted>
+                    <source id="vSource" src="StreamingAssets/Video/过渡动画.m4v" type="video/mp4" />
+                </video>
+                <button id="btnSkip" onclick="onBtnSkipClick()">跳过</button> -->
+            </div>
+        </div>
+        <audio id="adMain" hidden="hidden" loop="loop"></audio>
+        <audio id="adAnother" hidden="hidden"></audio>
+        <div id="unity-warning"></div>
+    </div>
+    <div id="divVideoPlayer">
+        <div id="vdTitle">这是一个标题</div>
+        <video id="vdPlayer" controls autoplay>
+            <source id="vdSource" src="" type="video/mp4" />
+        </video>
+        <div id="btnClose" onclick="onBtnCloseClick()"></div>
+    </div>
+
+    <script>
+        // 获取div变量
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var logo = document.querySelector("#unity-logo");
+        var warningBanner = document.querySelector("#unity-warning");
+        var modal = document.querySelector("#modal");
+        var divView = document.querySelector("#divView");
+        //var vdMain = document.querySelector("#vdMain");
+
+        //vdMain.addEventListener('ended', function () { onBtnSkipClick(); }, false);
+        //vdMain.play();
+        // Unity实例
+        var gameInstance = null;
+        onBtnSkipClick();
+        // 初始化参数
+        var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/WebGL.loader.js";
+        var config = {
+     dataUrl: buildUrl + "/WebGL.data",
+        frameworkUrl: buildUrl + "/WebGL.framework.js",
+        codeUrl: buildUrl + "/WebGL.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "VRONE",
+        productVersion: "0.1.0",
+            showBanner: unityShowBanner,
+        };
+
+        // 判断是否为移动设备
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            // Avoid draining fillrate performance on mobile devices,
+            // and default/override low DPI mode on mobile browsers.
+            container.className = "unity-mobile";
+            config.devicePixelRatio = 1;
+        }
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            // showImages();   // 显示图片幻灯片
+
+            createUnityInstance(canvas, config, (progress) => {
+                setOldProgresss(progress);          // 设置进度
+            }).then((unityInstance) => {            // 进度加载结束后
+                gameInstance = unityInstance;       // 保存Unity实例，用于与Unity通信
+                progressCustom();                   // 调用自定义进度条
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+        document.body.appendChild(script);
+
+        // 显示错误提示(错误信息，错误类型)
+        function unityShowBanner(msg, type) {
+            function updateBannerVisibility() {
+                warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+            }
+            var div = document.createElement('div');
+            div.innerHTML = msg;
+            warningBanner.appendChild(div);
+            if (type == 'error') div.style = 'background: red; padding: 10px;';
+            else {
+                if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+                setTimeout(function () {
+                    warningBanner.removeChild(div);
+                    updateBannerVisibility();
+                }, 5000);
+            }
+            updateBannerVisibility();
+        }
+    </script>
+
+    <script src="js/screenProcess.js"></script>
+    <script src="js/audioProcess.js"></script>
+</body>
+</html>
