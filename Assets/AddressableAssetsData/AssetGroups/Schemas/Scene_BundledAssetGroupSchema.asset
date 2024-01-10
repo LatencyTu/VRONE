@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
-  m_Name: Default Local Group_BundledAssetGroupSchema
+  m_Name: Scene_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: e00a69435f3e2a74fa30b9ae17489e40, type: 2}
+  m_Group: {fileID: 11400000, guid: 81f7b3bb5be87a2438da15d56d472991, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1

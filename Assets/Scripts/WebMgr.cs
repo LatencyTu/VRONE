@@ -206,7 +206,7 @@ public class SpotDatas
             }
             else
             {
-                Debug.Log("SpotDatas单例模式未设置");
+                //Debug.Log("SpotDatas单例模式未设置");
                 return null;
             }
         }
