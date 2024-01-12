@@ -93,23 +93,24 @@ public class WebMgr : MonoBehaviour
     }
     IEnumerator DownLoadCoverImage()
     {
-        yield return StartCoroutine(DownloadJsons());
-        Debug.Log(SpotDatas.Instance.list.Length + "个数据");
-        for (int i = 0; i < SpotDatas.Instance.list.Length; i++)
-        {
-            if (SpotDatas.Instance.list[i].dataTypeId == "3")
-            {
-                Debug.Log(i + "是图片");
-            }
-            else
-            {
-                Debug.Log(i + "是视频");
-            }
-        }
-        for (int i = 0; i < SpotDatas.Instance.list.Length; i++)
-        {
-            yield return StartCoroutine(DownLoadData(SpotDatas.Instance.list[i].dataSource.coverUrl, (data) => { SpotDatas.Instance.list[i].coverImageData = data; }));
-        }
+        yield return 0;
+        //yield return StartCoroutine(DownloadJsons());
+        //Debug.Log(SpotDatas.Instance.list.Length + "个数据");
+        //for (int i = 0; i < SpotDatas.Instance.list.Length; i++)
+        //{
+        //    if (SpotDatas.Instance.list[i].dataTypeId == "3")
+        //    {
+        //        Debug.Log(i + "是图片");
+        //    }
+        //    else
+        //    {
+        //        Debug.Log(i + "是视频");
+        //    }
+        //}
+        //for (int i = 0; i < SpotDatas.Instance.list.Length; i++)
+        //{
+        //    yield return StartCoroutine(DownLoadData(SpotDatas.Instance.list[i].dataSource.coverUrl, (data) => { SpotDatas.Instance.list[i].coverImageData = data; }));
+        //}
         OnDownLoadComplete();
     }
     public static IEnumerator DownLoadData(string url, Action<byte[]> myAction)    //byte数据下载并存储

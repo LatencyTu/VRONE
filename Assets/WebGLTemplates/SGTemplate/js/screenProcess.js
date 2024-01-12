@@ -4,13 +4,13 @@ var mask = document.querySelector("#mask");
 
 // ����������ʾ�ĺ���
 function handlePortraitOfMobile() {
-    if (window.orientation === 180 || window.orientation === 0) {
-        mask.style.display = "block";
-    } else {
-        mask.style.display = "none";
+    // if (window.orientation === 180 || window.orientation === 0) {
+    //     mask.style.display = "block";
+    // } else {
+    //     mask.style.display = "none";
 
-        setTimeout("stretchScreen()", 200); // ��ʱ���ܻ�ȡ�����º�����
-    }
+    //     setTimeout("stretchScreen()", 200); // ��ʱ���ܻ�ȡ�����º�����
+    // }
 }
 
 // ��ʼ������״̬����

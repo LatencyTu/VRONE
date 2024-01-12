@@ -22,7 +22,7 @@
     <script src="js/dataProcess.js"></script>
 </head>
 <body>
-    <div id="mask"></div>
+    <!-- <div id="mask"></div> -->
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas"></canvas>
         <div id="unity-loading-bar">
@@ -122,6 +122,13 @@
             }
             updateBannerVisibility();
         }
+
+    if (window.performance && window.performance.memory) {
+        var totalJSHeapSize = ("Total JS Heap Size: " + (performance.memory.totalJSHeapSize/1024/1024).toFixed(3)+"M");
+        var usedJSHeapSize = ("\nUsed JS Heap Size: " + (performance.memory.usedJSHeapSize/1024/1024).toFixed(3)+"M");
+        var jsHeapSizeLimit = ("\nJS Heap Size Limit: " + (performance.memory.jsHeapSizeLimit/1024/1024/1024).toFixed(3)+"G");
+    }
+    alert (totalJSHeapSize+usedJSHeapSize+jsHeapSizeLimit+"\n设备信息:"+navigator.userAgent);
     </script>
 
     <script src="js/screenProcess.js"></script>
