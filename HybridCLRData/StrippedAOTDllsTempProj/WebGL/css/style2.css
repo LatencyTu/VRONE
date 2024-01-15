@@ -1,0 +1,237 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#unity-container.unity-desktop {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#unity-canvas {
+    width: 100%;
+    height: 100%
+}
+
+#unity-loading-bar {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#unity-logo {
+    width: 100%;
+    height: 100%;
+    background: none;
+    background-color: black;
+    /*background: url('../images/index/pic/pic1.jpg') no-repeat center;*/
+    background-size: 100% 100%;
+    justify-content: center;
+}
+
+#boxProgress {
+    width: 100%;
+    height: 40px;
+    background: #000000;
+    position: fixed;
+    bottom: 0px;
+    z-index: 2;
+}
+
+#bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia;
+    clip: rect(0px, 0, 40px, 0px);
+    background: #8B8386;
+}
+
+#text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia;
+}
+/*
+@font-face {
+    font-family: myfont;
+    src: url('��������������.ttf') format('truetype');
+}*/
+
+#title {
+    font-weight: bold;
+    font-family: myfont;
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translate(-50%, -50%)
+}
+
+#mask {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background: url('../images/hp.jpg') no-repeat center;
+    background-size: 100% 100%;
+}
+
+.center-modal {
+    display: none;
+    width: 60%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: gray;
+    opacity: 0.8;
+    /*background-image: url('../Images/2.png');*/
+    padding: 5px;
+}
+
+.maxmize-modal {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: gray;
+    opacity: 0.8;
+    /*background-image: url('../Images/2.png');*/
+    padding: 5px;
+}
+
+#modalTitle {
+    width: 100%;
+    height: 40px;
+    background-image: url('../Images/1.png');
+    background-size: 100% 100%;
+}
+
+#modalContent {
+    width: 100%;
+    height: 100%;
+}
+
+#divView {
+    height: 100%;
+    width: 100%;
+    /*width: 100%;
+    position: relative;
+    padding-bottom: 56.25%;*/ /*9����16*/
+    /*height: 0;*/
+}
+
+#vAnim {
+    height: 100%;
+    width: 100%;
+}
+
+#btnSkip {
+    position: fixed;
+    top: 13px;
+    right: 13px;
+    width: 80px;
+    height: 35px;
+    background-size: 100% 100%;
+}
+
+#btnClose {
+    position: fixed;
+    top: 13px;
+    right: 13px;
+    width: 35px;
+    height: 35px;
+    background: url('../images/ui/close.png') no-repeat center;
+    background-size: 100% 100%;
+    display: none;
+}
+
+#btnMax {
+    position: fixed;
+    top: 13px;
+    right: 45px;
+    width: 35px;
+    height: 35px;
+    background: url('../images/ui/max.png') no-repeat center;
+    background-size: 100% 100%;
+}
+
+#btnPlay {
+    display: none;
+    position: fixed;
+    left: 13px;
+    top: 13px;
+    width: 35px;
+    height: 35px;
+    background: url('../images/ui/play.png') no-repeat center;
+    background-size: 100% 100%;
+}
+
+#vdMain {
+    /*width: 100%;*/
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+#imgMain {
+    width: 100%;
+    height: 100%
+}
+
+#imgText {
+    width: inherit;
+    height: auto;
+}
+
+#comic {
+    width: inherit;
+    height: auto;
+}
+
+#divVideoPlayer {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: none;
+    background-color: #000000A0;
+    background-size: 100% 100%;
+    justify-content: center;
+    z-index: 9999;
+    position: absolute;
+}
+
+#vdPlayer {
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+#vdTitle {
+    text-align: center;
+    font-size:larger;
+    width: 100%;
+    top: 10px;
+    color: white;
+    position: absolute;
+}
