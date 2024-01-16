@@ -3,11 +3,12 @@ using System.Collections;
 using System.Text;
 using System;
 using System.Runtime.InteropServices;
+using Templete;
 
 public class GetMemory: MonoBehaviour
 {
 	float maxUsedMemory = 0.0f;
-	void Start()
+	void Update()
 	{
 		DontDestroyOnLoad(this);
 		//获取当前系统
@@ -18,7 +19,7 @@ public class GetMemory: MonoBehaviour
 		float usedMemory = reservedMemory + allocatedMemory;
 		if (maxUsedMemory < usedMemory) maxUsedMemory = usedMemory;
 		//totalMemory:{totalMemory}M\n
-		Debug.Log($"maxUsedMemory:{maxUsedMemory}M\nreservedMemory:{reservedMemory}M\nallocatedMemory:{allocatedMemory}M\nusedMemory:{usedMemory }M");
+		TestDebug.Instance().Log($"maxUsedMemory:{maxUsedMemory}M\nreservedMemory:{reservedMemory}M\nallocatedMemory:{allocatedMemory}M\nusedMemory:{usedMemory }M");
 	}
 
 }
