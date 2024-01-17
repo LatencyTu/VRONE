@@ -7,7 +7,7 @@ namespace Templete
 {
     public class TestDebug:SingleBase<TestDebug>
     {
-        public bool EnableDebug = false;
+        public bool EnableDebug = true;
         public void Log(object msg)
         {
             if (EnableDebug)
