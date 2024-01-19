@@ -13,8 +13,6 @@ using Templete;
 
 public class WebMgr : MonoBehaviour
 {
-    public Slider bar;
-    public GameObject panel;
     void Start()
     {
     }
@@ -150,15 +148,17 @@ public class WebMgr : MonoBehaviour
     }
     void OnDownLoadComplete()
     {
-        panel.SetActive(true);
+        LoadingPanelCtrl.Instance().OpenLoadingPanel($"Loading APP{GetCid.Cid}");
+        LoadingPanel loading = LoadingPanelCtrl.Instance().script;
         AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync("APP" + GetCid.Cid, UnityEngine.SceneManagement.LoadSceneMode.Single);
-        Templete.CheckTick.AddRule(() => { 
-            bar.value = Mathf.Lerp(bar.value, handle.PercentComplete,Time.deltaTime); 
-            TestDebug.Instance().Log(handle.PercentComplete); 
-            return handle.IsDone; 
+        CheckTick.AddRule(() => {
+            loading.SetValue(Mathf.Lerp(loading.curValue, handle.PercentComplete, Time.deltaTime));
+            TestDebug.Instance().Log(handle.PercentComplete);
+            return handle.IsDone;
         }, 
-        () => { 
-            return true; 
+        () => {
+            LoadingPanelCtrl.Instance().CloseLoadingPanel();
+            return true;
         });
         handle.Completed += (obj) =>
         {

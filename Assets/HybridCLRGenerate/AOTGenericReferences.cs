@@ -5,7 +5,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// {{ AOT assemblies
 	public static readonly IReadOnlyList<string> PatchedAOTAssemblyList = new List<string>
 	{
+		"DOTween.dll",
 		"LitJson.Runtime.dll",
+		"Module.Runtime.dll",
 		"System.Core.dll",
 		"System.dll",
 		"Unity.ResourceManager.dll",
@@ -18,6 +20,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// }} 
 
 	// {{ AOT generic types
+	// DG.Tweening.Core.DOGetter<float>
+	// DG.Tweening.Core.DOSetter<float>
 	// DelegateList<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>>
 	// DelegateList<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle>
 	// DelegateList<float>
@@ -65,6 +69,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	// System.Threading.Tasks.Task<object>
 	// System.Threading.Tasks.TaskCompletionSource<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// System.Threading.Tasks.TaskCompletionSource<object>
+	// Templete.SingleBase<object>
 	// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase.<>c__DisplayClass60_0<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase.<>c__DisplayClass61_0<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
 	// UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance>
@@ -78,5 +83,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// object LitJson.JsonMapper.ToObject<object>(string)
 		// object System.Activator.CreateInstance<object>()
 		// object UnityEngine.Component.GetComponent<object>()
+		// object UnityEngine.GameObject.GetComponent<object>()
 	}
 }

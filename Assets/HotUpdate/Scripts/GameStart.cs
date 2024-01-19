@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Templete;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 
 public class GameStart : MonoBehaviour
 {
+
     public static void Run()
     {
-        TestLoading();
+        Preload();
     }
-    public static void TestLoading()
+    public static void Preload()
     {
-        Addressables.LoadSceneAsync("Loading", UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += (obj) =>
+        Addressables.LoadSceneAsync("Game", UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += (obj) =>
         {
-            TestDebug.Instance().Log("Loading Scene");
+            TestDebug.Instance().Log("Game");
         };
     }
 }

@@ -19,7 +19,7 @@ public class GetMemory: MonoBehaviour
 		float usedMemory = reservedMemory + allocatedMemory;
 		if (maxUsedMemory < usedMemory) maxUsedMemory = usedMemory;
 		//totalMemory:{totalMemory}M\n
-		TestDebug.Instance().Log($"maxUsedMemory:{maxUsedMemory}M\nreservedMemory:{reservedMemory}M\nallocatedMemory:{allocatedMemory}M\nusedMemory:{usedMemory }M");
+		//TestDebug.Instance().Log($"maxUsedMemory:{maxUsedMemory}M\nreservedMemory:{reservedMemory}M\nallocatedMemory:{allocatedMemory}M\nusedMemory:{usedMemory }M");
 	}
 
 }

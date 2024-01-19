@@ -23,10 +23,10 @@ public class ApplyData : MonoBehaviour
     {
     }
 
-    public void ApplyCover(Transform spot)
+    public void ApplyCover(Transform spot,int i)
     {
         Texture2D texture = new Texture2D(1, 1);
-        texture.LoadImage(SpotDatas.Instance.list[0].coverImageData);
+        texture.LoadImage(SpotDatas.Instance.list[i].coverImageData);
         spot.GetComponent<RawImage>().texture = texture;
     }
     public void ShowCovers()
@@ -35,11 +35,11 @@ public class ApplyData : MonoBehaviour
         {
             if (SpotDatas.Instance.list[i].dataTypeId == "3")
             {
-                ApplyCover(this.transform.GetChild(i));
+                ApplyCover(this.transform.GetChild(i),i);
             }
             else if (SpotDatas.Instance.list[i].dataTypeId == "4")
             {
-                ApplyCover(this.transform.GetChild(i));
+                ApplyCover(this.transform.GetChild(i),i);
             }
         }
     }

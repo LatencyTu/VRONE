@@ -7,8 +7,27 @@
     <type fullname="RenderHeads.Media.AVProVideo.MediaPathType" preserve="all" />
     <type fullname="RenderHeads.Media.AVProVideo.MediaPlayer" preserve="all" />
   </assembly>
+  <assembly fullname="DOTween">
+    <type fullname="DG.Tweening.Core.DOGetter`1" preserve="all" />
+    <type fullname="DG.Tweening.Core.DOSetter`1" preserve="all" />
+    <type fullname="DG.Tweening.Core.TweenerCore`3" preserve="all" />
+    <type fullname="DG.Tweening.DOTween" preserve="all" />
+    <type fullname="DG.Tweening.Plugins.Options.FloatOptions" preserve="all" />
+    <type fullname="DG.Tweening.Plugins.Options.VectorOptions" preserve="all" />
+    <type fullname="DG.Tweening.ShortcutExtensions" preserve="all" />
+    <type fullname="DG.Tweening.Tween" preserve="all" />
+    <type fullname="DG.Tweening.TweenCallback" preserve="all" />
+  </assembly>
   <assembly fullname="LitJson.Runtime">
     <type fullname="LitJson.JsonMapper" preserve="all" />
+  </assembly>
+  <assembly fullname="Module.Runtime">
+    <type fullname="LoadingPanel" preserve="all" />
+    <type fullname="MainUICanvas" preserve="all" />
+    <type fullname="Templete.CheckTick" preserve="all" />
+    <type fullname="Templete.CheckTickFunctions" preserve="all" />
+    <type fullname="Templete.CheckTickFunctions/CheckTickFunc" preserve="all" />
+    <type fullname="Templete.SingleBase`1" preserve="all" />
   </assembly>
   <assembly fullname="Unity.Addressables">
     <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
@@ -16,6 +35,10 @@
   <assembly fullname="Unity.ResourceManager">
     <type fullname="UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1" preserve="all" />
     <type fullname="UnityEngine.ResourceManagement.ResourceProviders.SceneInstance" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.StarterAssets">
+    <type fullname="StarterAssets.StarterAssetsInputs" preserve="all" />
+    <type fullname="StarterAssets.ThirdPersonController" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.CoreModule">
     <type fullname="UnityEngine.Application" preserve="all" />
@@ -26,6 +49,7 @@
     <type fullname="UnityEngine.Debug" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
     <type fullname="UnityEngine.LogType" preserve="all" />
+    <type fullname="UnityEngine.Mathf" preserve="all" />
     <type fullname="UnityEngine.Matrix4x4" preserve="all" />
     <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
@@ -35,10 +59,12 @@
     <type fullname="UnityEngine.RectTransform" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.LoadSceneMode" preserve="all" />
     <type fullname="UnityEngine.SceneManagement.Scene" preserve="all" />
+    <type fullname="UnityEngine.SceneManagement.SceneManager" preserve="all" />
     <type fullname="UnityEngine.Screen" preserve="all" />
     <type fullname="UnityEngine.SystemInfo" preserve="all" />
     <type fullname="UnityEngine.Texture" preserve="all" />
     <type fullname="UnityEngine.Texture2D" preserve="all" />
+    <type fullname="UnityEngine.Time" preserve="all" />
     <type fullname="UnityEngine.Transform" preserve="all" />
     <type fullname="UnityEngine.Vector2" preserve="all" />
     <type fullname="UnityEngine.Vector3" preserve="all" />
@@ -50,10 +76,18 @@
   <assembly fullname="UnityEngine.ImageConversionModule">
     <type fullname="UnityEngine.ImageConversion" preserve="all" />
   </assembly>
+  <assembly fullname="UnityEngine.InputLegacyModule">
+    <type fullname="UnityEngine.Input" preserve="all" />
+  </assembly>
   <assembly fullname="UnityEngine.UI">
+    <type fullname="UnityEngine.EventSystems.BaseEventData" preserve="all" />
     <type fullname="UnityEngine.EventSystems.EventSystem" preserve="all" />
     <type fullname="UnityEngine.UI.Graphic" preserve="all" />
+    <type fullname="UnityEngine.UI.Image" preserve="all" />
     <type fullname="UnityEngine.UI.RawImage" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.UIModule">
+    <type fullname="UnityEngine.CanvasGroup" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UnityWebRequestModule">
     <type fullname="UnityEngine.Networking.DownloadHandler" preserve="all" />
@@ -83,6 +117,7 @@
     <type fullname="System.Math" preserve="all" />
     <type fullname="System.NotSupportedException" preserve="all" />
     <type fullname="System.Object" preserve="all" />
+    <type fullname="System.ParamArrayAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilationRelaxationsAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.CompilerGeneratedAttribute" preserve="all" />
     <type fullname="System.Runtime.CompilerServices.IteratorStateMachineAttribute" preserve="all" />
@@ -92,6 +127,7 @@
     <type fullname="System.Single" preserve="all" />
     <type fullname="System.String" preserve="all" />
     <type fullname="System.StringSplitOptions" preserve="all" />
+    <type fullname="System.Text.StringBuilder" preserve="all" />
     <type fullname="System.Type" preserve="all" />
     <type fullname="System.ValueType" preserve="all" />
   </assembly>
