@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 045eac15a429e4c40988244568a67420
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 99246f7f4a01c6b488c7452eba4592d8
+    m_Address: SceneListPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4387c11dac6d3d04aae144ee2dd5876e, type: 2}
   m_SchemaSet:

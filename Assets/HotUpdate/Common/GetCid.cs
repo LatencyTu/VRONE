@@ -18,25 +18,25 @@ public class GetCid : MonoBehaviour
                 string[] sArray = Application.absoluteURL.Split("cid=");
                 if (sArray.Length < 2)
                 {
-                    TestDebug.Instance().Log("未从网站上读取cid，设为1"+"网站是"+ Application.absoluteURL);
+                    TestDebug.Log("未从网站上读取cid，设为1"+"网站是"+ Application.absoluteURL);
                     cid = "1";
                     return "1";
                 }
                 else
                 {
-                    TestDebug.Instance().Log("网站是" + Application.absoluteURL + "cid是" + sArray[sArray.Length - 1]);
+                    TestDebug.Log("网站是" + Application.absoluteURL + "cid是" + sArray[sArray.Length - 1]);
                     cid = sArray[sArray.Length - 1];
                     return cid;
                 }
             }
             else if(cid != null)
             {
-                TestDebug.Instance().Log("cid设为" + cid);
+                TestDebug.Log("cid设为" + cid);
                 return cid;
             }
             else
             {
-                TestDebug.Instance().Log("未读取网址，设为1" + Application.absoluteURL);
+                TestDebug.Log("未读取网址，设为1" + Application.absoluteURL);
                 cid = "1";
                 return "1";
             }
@@ -44,13 +44,13 @@ public class GetCid : MonoBehaviour
         set 
         {
             cid = value;
-            TestDebug.Instance().Log("cid设为" + value);
+            TestDebug.Log("cid设为" + value);
         }
     }
 
     void Start()
     {
-        TestDebug.Instance().Log("当前地址"+Application.absoluteURL);
+        TestDebug.Log("当前地址"+Application.absoluteURL);
     }
     string GetCaid(string url)
     {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Templete;
 using UnityEngine.UI;
 using RenderHeads.Media.AVProVideo;
 using UnityEngine.EventSystems;
@@ -47,8 +48,8 @@ public class ApplyData : MonoBehaviour
     {
         EventSystem eventSystem = EventSystem.current;
         int index = eventSystem.currentSelectedGameObject.transform.GetSiblingIndex();
-        print(EventSystem.current.name);
-        print("按下第" + index + "按钮");
+        TestDebug.Log(EventSystem.current.name);
+        TestDebug.Log("按下第" + index + "按钮");
         if (SpotDatas.Instance.list[index].dataTypeId == "3"&& SpotDatas.Instance.list[index].data==null)
         {
             StartCoroutine(WebMgr.DownLoadData(SpotDatas.Instance.list[index].dataSource.url, (data) => { SpotDatas.Instance.list[index].data = data; ShowData(index); }));

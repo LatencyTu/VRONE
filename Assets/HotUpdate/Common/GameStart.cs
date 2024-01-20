@@ -11,13 +11,17 @@ public class GameStart : MonoBehaviour
 
     public static void Run()
     {
+        Input.multiTouchEnabled = true;
+        //Screen.SetResolution(2560, 1440, true);
         Preload();
     }
     public static void Preload()
     {
-        Addressables.LoadSceneAsync("Game", UnityEngine.SceneManagement.LoadSceneMode.Single).Completed += (obj) =>
+        AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync("Game", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        LoadingPanelCtrl.Instance().OpenLoadingPanel(handle,$"Loading Game");
+        handle.Completed += (obj) =>
         {
-            TestDebug.Instance().Log("Game");
+            TestDebug.Log("Game");
         };
     }
 }

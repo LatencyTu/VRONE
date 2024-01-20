@@ -10,7 +10,6 @@ public class GetMemory: MonoBehaviour
 	float maxUsedMemory = 0.0f;
 	void Update()
 	{
-		DontDestroyOnLoad(this);
 		//获取当前系统
 		//SystemInfo.operatingSystem;
 		float totalMemory = SystemInfo.systemMemorySize;
@@ -19,7 +18,7 @@ public class GetMemory: MonoBehaviour
 		float usedMemory = reservedMemory + allocatedMemory;
 		if (maxUsedMemory < usedMemory) maxUsedMemory = usedMemory;
 		//totalMemory:{totalMemory}M\n
-		//TestDebug.Instance().Log($"maxUsedMemory:{maxUsedMemory}M\nreservedMemory:{reservedMemory}M\nallocatedMemory:{allocatedMemory}M\nusedMemory:{usedMemory }M");
+		//TestDebug.Log($"maxUsedMemory:{maxUsedMemory}M\nreservedMemory:{reservedMemory}M\nallocatedMemory:{allocatedMemory}M\nusedMemory:{usedMemory }M");
 	}
 
 }

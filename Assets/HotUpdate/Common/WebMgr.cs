@@ -13,8 +13,9 @@ using Templete;
 
 public class WebMgr : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
+        DontDestroyOnLoad(this);
     }
     interface IInitializeID
     {
@@ -51,17 +52,17 @@ public class WebMgr : MonoBehaviour
         //    DataID dataID = new DataID(ID);
         //    jsonString = JsonMapper.ToJson(dataID);
         //}
-        //else { TestDebug.Instance().Log("type error"); yield break; }
+        //else { TestDebug.Log("type error"); yield break; }
         T id = new T() ;
 
         (id as IInitializeID)?.InitializeID(ID);
 
         string jsonString = JsonMapper.ToJson(id);
 
-        TestDebug.Instance().Log("上传json"+jsonString);
+        TestDebug.Log("上传json"+jsonString);
 
         UnityWebRequest req =  UnityWebRequest.Post(serverUrl, jsonString, "application/json");
-
+        //LoadingPanelCtrl.Instance().OpenLoadingPanel(req, serverUrl);
         req.downloadHandler = new DownloadHandlerBuffer();
 
         yield return req.SendWebRequest();
@@ -69,13 +70,13 @@ public class WebMgr : MonoBehaviour
         if (req.result == UnityWebRequest.Result.Success)
         {
             string json = req.downloadHandler.text;
-            TestDebug.Instance().Log("json下载成功"+json);
+            TestDebug.Log("json下载成功"+json);
             U jsonData = JsonMapper.ToObject<U>(json);
             myAction(jsonData);
         }
         else
         {
-            TestDebug.Instance().Log("json下载失败" + req.result + req.error + req.responseCode);
+            TestDebug.Log("json下载失败" + req.result + req.error + req.responseCode);
         }
     }
     IEnumerator DownloadJsons()
@@ -88,26 +89,25 @@ public class WebMgr : MonoBehaviour
         {
             if (SpotDatas.Instance.list[i].dataTypeId == "3")
             { yield return StartCoroutine(DownloadJson<DataID, DataSource>(SpotDatas.Instance.list[i].dataSourceId, "http://121.4.240.32:8080/VRdemo/img/getImageData", 
-                a => { SpotDatas.Instance.list[i].dataSource = a; TestDebug.Instance().Log("图片地址为"+SpotDatas.Instance.list[i].dataSource.url); })); }
+                a => { SpotDatas.Instance.list[i].dataSource = a; TestDebug.Log("图片地址为"+SpotDatas.Instance.list[i].dataSource.url); })); }
             if (SpotDatas.Instance.list[i].dataTypeId == "4")
             { yield return StartCoroutine(DownloadJson<DataID, DataSource>(SpotDatas.Instance.list[i].dataSourceId, "http://121.4.240.32:8080/VRdemo/video/getVideoData", 
-                a => { SpotDatas.Instance.list[i].dataSource = a; TestDebug.Instance().Log("视频地址为" + SpotDatas.Instance.list[i].dataSource.url); })); }
+                a => { SpotDatas.Instance.list[i].dataSource = a; TestDebug.Log("视频地址为" + SpotDatas.Instance.list[i].dataSource.url); })); }
         }
     }
     IEnumerator DownLoadCoverImage()
     {
-        //yield return 0;
         yield return StartCoroutine(DownloadJsons());
-        TestDebug.Instance().Log(SpotDatas.Instance.list.Length + "个数据");
+        TestDebug.Log(SpotDatas.Instance.list.Length + "个数据");
         for (int i = 0; i < SpotDatas.Instance.list.Length; i++)
         {
             if (SpotDatas.Instance.list[i].dataTypeId == "3")
             {
-                TestDebug.Instance().Log(i + "是图片");
+                TestDebug.Log(i + "是图片");
             }
             else
             {
-                TestDebug.Instance().Log(i + "是视频");
+                TestDebug.Log(i + "是视频");
             }
         }
         for (int i = 0; i < SpotDatas.Instance.list.Length; i++)
@@ -118,18 +118,19 @@ public class WebMgr : MonoBehaviour
     }
     public static IEnumerator DownLoadData(string url, Action<byte[]> myAction)    //byte数据下载并存储
     {
-        TestDebug.Instance().Log("开始在" + url + "下载数据");
+        TestDebug.Log("开始在" + url + "下载数据");
         UnityWebRequest req = UnityWebRequest.Get(url);
+        //LoadingPanelCtrl.Instance().OpenLoadingPanel(req, url,false);
         yield return req.SendWebRequest();
         if (req.result == UnityWebRequest.Result.Success)
         {
             byte[] data = req.downloadHandler.data;
             myAction(data);
-            TestDebug.Instance().Log("获取数据成功" + url);
+            TestDebug.Log("获取数据成功" + url);
         }
         else
         {
-            TestDebug.Instance().Log("获取数据失败" + req.result + req.error + req.responseCode);
+            TestDebug.Log("获取数据失败" + req.result + req.error + req.responseCode);
         }
     }
     public void StartDownLoad()
@@ -148,21 +149,10 @@ public class WebMgr : MonoBehaviour
     }
     void OnDownLoadComplete()
     {
-        LoadingPanelCtrl.Instance().OpenLoadingPanel($"Loading APP{GetCid.Cid}");
-        LoadingPanel loading = LoadingPanelCtrl.Instance().script;
         AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync("APP" + GetCid.Cid, UnityEngine.SceneManagement.LoadSceneMode.Single);
-        CheckTick.AddRule(() => {
-            loading.SetValue(Mathf.Lerp(loading.curValue, handle.PercentComplete, Time.deltaTime));
-            TestDebug.Instance().Log(handle.PercentComplete);
-            return handle.IsDone;
-        }, 
-        () => {
-            LoadingPanelCtrl.Instance().CloseLoadingPanel();
-            return true;
-        });
+        LoadingPanelCtrl.Instance().OpenLoadingPanel(handle,$"Loading APP{GetCid.Cid}");
         handle.Completed += (obj) =>
         {
-            //panel.SetActive(false);
             SceneManager.SetActiveScene(obj.Result.Scene);
             AsyncOperation async = obj.Result.ActivateAsync();
             async.completed += (a) =>
@@ -173,13 +163,6 @@ public class WebMgr : MonoBehaviour
 
                     //注意：场景资源也是可以释放的，并不会影响当前已经加载出来的场景，因为场景的本质只是配置文件
             };
-            //Templete.CheckTick.AddRule(() => {
-            //    TestDebug.Instance().Log(async.progress);
-            //    return async.isDone;
-            //},
-            //() => {
-            //    return true;
-            //});
         };
     }
 }
@@ -200,7 +183,7 @@ public class LoadingData
             }
             else
             {
-                TestDebug.Instance().Log("LoadingData单例模式未设置");
+                TestDebug.Log("LoadingData单例模式未设置");
                 return null;
             }
         }
@@ -208,12 +191,12 @@ public class LoadingData
         {
             if (instance == null)
             {
-                TestDebug.Instance().Log("LoadingData单例模式已设置");
+                TestDebug.Log("LoadingData单例模式已设置");
                 instance = value;
             }
             else
             {
-                TestDebug.Instance().Log("LoadingData单例模式重复设置");
+                TestDebug.Log("LoadingData单例模式重复设置");
             }
         }
     }
@@ -231,7 +214,7 @@ public class SpotDatas
             }
             else
             {
-                //TestDebug.Instance().Log("SpotDatas单例模式未设置");
+                //TestDebug.Log("SpotDatas单例模式未设置");
                 return null;
             }
         }
@@ -239,12 +222,12 @@ public class SpotDatas
         {
             if (instance == null)
             {
-                TestDebug.Instance().Log("SpotDatas单例模式已设置");
+                TestDebug.Log("SpotDatas单例模式已设置");
                 instance = value;
             }
             else
             {
-                TestDebug.Instance().Log("SpotDatas单例模式重复设置");
+                TestDebug.Log("SpotDatas单例模式重复设置");
             }
         }
     }

@@ -5,17 +5,17 @@ using UnityEngine;
 
 namespace Templete
 {
-    public class TestDebug:SingleBase<TestDebug>
+    public class TestDebug
     {
-        public bool EnableDebug = true;
-        public void Log(object msg)
+        public static bool EnableDebug = true;
+        public static void Log(object msg)
         {
             if (EnableDebug)
             {
                 Debug.Log(msg);
             }
         }
-        public void Log(params object[] msgList)
+        public static void Log(params object[] msgList)
         {
             if (EnableDebug)
             {
