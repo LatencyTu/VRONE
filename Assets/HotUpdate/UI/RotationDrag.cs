@@ -1,6 +1,7 @@
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using Templete;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,19 +9,31 @@ public class RotationDrag : DragTest
 {
     public ThirdPersonController controller;
     // Start is called before the first frame update
+    GameGlobar GameGlobar;
     void Start()
     {
-        _onDragBegin = (data) =>
+        GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
+        CheckTick.AddRule(findctrl, addevent);
+        bool findctrl()
         {
-            controller._input.LookInput(Vector3.zero);
-        };
-        _onDrag = ( data) =>
+            controller = (GameGlobar.Map["Player"] as GameObject).GetComponentInChildren<ThirdPersonController>();
+            return controller;
+        }
+        bool addevent()
         {
-            controller._input.LookInput(Vector3.Normalize(rect.anchoredPosition - start_pos));
-        };
-        _onDragEnd = (data) =>
-        {
-            controller._input.LookInput(Vector3.zero);
-        };
+            _onDragBegin = (data) =>
+            {
+                controller._input.LookInput(Vector3.zero);
+            };
+            _onDrag = (data) =>
+            {
+                controller._input.LookInput(Vector3.Normalize(rect.anchoredPosition - start_pos));
+            };
+            _onDragEnd = (data) =>
+            {
+                controller._input.LookInput(Vector3.zero);
+            };
+            return true;
+        }   
     }
 }

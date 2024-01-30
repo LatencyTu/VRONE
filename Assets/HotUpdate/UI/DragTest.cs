@@ -27,7 +27,7 @@ public class DragTest : MonoBehaviour
        CheckIsMobile();
 #endif
 #if UNITY_EDITOR
-        transform.parent.gameObject.SetActive(false);
+        //transform.parent.gameObject.SetActive(false);
 #endif
         start_pos = rect.anchoredPosition;
     }

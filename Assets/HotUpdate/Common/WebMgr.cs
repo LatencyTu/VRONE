@@ -13,8 +13,10 @@ using Templete;
 
 public class WebMgr : MonoBehaviour
 {
+    static GameGlobar GameGlobar;
     void Awake()
     {
+        GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
         DontDestroyOnLoad(this);
     }
     interface IInitializeID
@@ -157,6 +159,18 @@ public class WebMgr : MonoBehaviour
             AsyncOperation async = obj.Result.ActivateAsync();
             async.completed += (a) =>
             {
+
+                CheckTick.AddRule(check, active);
+                bool check()
+                {
+                    return GameGlobar.Map["Player"] as GameObject && GameGlobar.Map["DragPanel"] as GameObject;
+                }
+                bool active()
+                {
+                    (GameGlobar.Map["Player"] as GameObject).SetActive(true);
+                    (GameGlobar.Map["DragPanel"] as GameObject).SetActive(true);
+                    return true;
+                }
                     //然后再去创建场景上的对象
 
                     //然后再去隐藏 加载界面

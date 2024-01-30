@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>布尔检测器</Title>
+      <Shortcut>CheckTick</Shortcut>
+      <Description>Inserts a custom method template</Description>
+      <Author>TuanTuan</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>MethodName1</ID>
+          <ToolTip>The name of the method1</ToolTip>
+          <Default>MethodName1</Default>
+        </Literal>
+        <Literal Editable="true">
+          <ID>MethodName2</ID>
+          <ToolTip>The name of the method2</ToolTip>
+          <Default>MethodName2</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+      <![CDATA[ 
+          CheckTick.AddRule($MethodName1$,$MethodName2$);
+          bool $MethodName1$(){
+              return true;
+          }
+          bool $MethodName2$(){
+              return true;
+          }
+      ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

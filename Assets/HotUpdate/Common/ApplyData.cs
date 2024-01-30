@@ -16,9 +16,18 @@ public class ApplyData : MonoBehaviour
     public RawImage rawImage;
     void Start()
     {
+        canvas.GetComponent<RectTransform>().SetParent(GameObject.Find("MainUICanvas").GetComponent<MainUICanvas>().Top.GetComponent<RectTransform>());
+        canvas.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
+        canvas.GetComponent<RectTransform>().localScale = Vector3.one;
+        canvas.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
+        canvas.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
+        canvas.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
         ShowCovers();
     }
-
+    private void OnDestroy()
+    {
+        Destroy(canvas);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -68,6 +77,7 @@ public class ApplyData : MonoBehaviour
             videoDisplayUI.gameObject.SetActive(false);
             mediaPlayer.Stop();
             canvas.SetActive(false);
+            //canvas.GetComponent<RectTransform>().parent = GameObject.Find("MainUICanvas").GetComponent<MainUICanvas>().Top.GetComponent<RectTransform>()
         };
     }
     public void ShowData(int index)

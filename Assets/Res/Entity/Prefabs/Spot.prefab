@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ecb33d09941c7444b4ace09cf71837e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 2645771190609248408}
+  canvas: {fileID: 2253168028554828620}
   Panel: {fileID: 4946246480359124868}
   mediaPlayer: {fileID: 6016495536848994073}
   videoDisplayUI: {fileID: 1157191583735760015}
@@ -604,13 +604,14 @@ GameObject:
   - component: {fileID: 7097943803873563293}
   - component: {fileID: 4616178627803027511}
   - component: {fileID: 4946246480359124868}
+  - component: {fileID: 318122966348836275}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7097943803873563293
 RectTransform:
   m_ObjectHideFlags: 0
@@ -671,6 +672,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &318122966348836275
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2253168028554828620}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2507177255569672303
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7022803477179718157
 RectTransform:
   m_ObjectHideFlags: 0
