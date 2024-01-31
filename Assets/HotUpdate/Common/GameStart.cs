@@ -6,19 +6,24 @@ using Templete;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
+//热更程序集运行的入口，不需要挂载
 public class GameStart : MonoBehaviour
 {
     static GameGlobar GameGlobar;
     static GameObject WebMgr;
     static GameObject Player;
     static GameObject DragPanel;
+    //在LoadDll中调用
     public static void Run()
     {
+        //启用多点触控
         Input.multiTouchEnabled = true;
         Preload();
     }
     public static void Preload()
     {
+        //加载player，webmgr，摇杆界面
+        //加载结束后加入到GameGlobar的字典
         GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
         GameGlobar.Map.Add("IsLand", false);
         AsyncOperationHandle<GameObject> asyncOperationHandle = Addressables.LoadAssetAsync<GameObject>("WebMgr");

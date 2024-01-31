@@ -4,7 +4,7 @@ using System.Text;
 using System;
 using System.Runtime.InteropServices;
 using Templete;
-
+//获取内存使用情况
 public class GetMemory: MonoBehaviour
 {
 	float maxUsedMemory = 0.0f;

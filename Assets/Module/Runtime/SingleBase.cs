@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Templete
 {
+    //µ¥Àý»ùÀà
     public class SingleBase<T> where T : class, new()
     {
         protected SingleBase() { }

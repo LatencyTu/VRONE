@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
+//Js交互的方法
 public class JsFunction : MonoBehaviour
 {
     [DllImport("__Internal")]

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Templete
 {
+    //π‹¿ÌDebug
     public class TestDebug
     {
         public static bool EnableDebug = true;

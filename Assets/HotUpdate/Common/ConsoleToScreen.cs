@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//将打印信息显示在屏幕上的类
 public class ConsoleToScreen : MonoBehaviour
 {
     const int maxLines = 50;

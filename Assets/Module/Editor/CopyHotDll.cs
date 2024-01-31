@@ -10,6 +10,7 @@ namespace Templete
 {
     public class CopyHotDll 
     {
+        //生成热更新的Dll并复制到Assets/Res/HotUpdate下，命名HotUpdate.dll.bytes
         [MenuItem("Tools/CopyHotDll")]
         public static void CopyDll2Byte()
         {
@@ -28,6 +29,7 @@ namespace Templete
             AssetDatabase.Refresh();
             Debug.Log("copy over");
         }
+        //生成热更新内需要的泛型的Dll并复制到Assets/Res/T下，命名后缀+.bytes
         [MenuItem("Tools/Copy<T>Dll")]
         public static void CopyTDll2Byte()
         {

@@ -8,13 +8,17 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Cinemachine;
 
+//管理场景切换，横竖屏等设置的测试类，挂载在WebMgr上
 public class AppTest : MonoBehaviour
 {
+    //存放一些全局变量
     GameGlobar GameGlobar;
+    //UI的根节点（所有屏幕UI都在这下面）
     MainUICanvas MainUICanvas;
+    //UI的次级节点（一般UI在这下面，如加载进度条，摇杆，场景切换下拉框）
     RectTransform topRect;
     public WebMgr webMgr;
-    // Start is called before the first frame update
+    //下拉框的数据
     List<Dropdown.OptionData> sceneList = new List<Dropdown.OptionData>()
     {
         new Dropdown.OptionData("GetID"),
@@ -26,9 +30,11 @@ public class AppTest : MonoBehaviour
         GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
         MainUICanvas = GameObject.Find("MainUICanvas").GetComponent<MainUICanvas>();
         topRect = MainUICanvas.Top.GetComponent<RectTransform>();
+        //加载场景切换的UI
         AsyncOperationHandle<GameObject> asyncOperationHandle = Addressables.LoadAssetAsync<GameObject>("SceneListPanel");
         asyncOperationHandle.Completed += (handle) =>
         {
+            //实例化，添加监听事件
             GameObject SceneListPanel = Instantiate(handle.Result, GameObject.Find("MainUICanvas").GetComponent<MainUICanvas>().Top.transform);
             SceneListPanel.name = "SceneListPanel";
             SceneListPanel.transform.SetAsFirstSibling();
@@ -37,8 +43,6 @@ public class AppTest : MonoBehaviour
             dropdown.options = sceneList;
             dropdown.onValueChanged.AddListener((value)=> 
             {
-                if(GameObject.Find("Drag"))
-                GameObject.Find("Drag").SetActive(false);
                 switch (value)
                 {
                     case 0:
@@ -54,11 +58,14 @@ public class AppTest : MonoBehaviour
                         break;
                 }
             });
+            //添加循环判断
             CheckTick.AddRule(checkload, addevent);
+            //当player和摇杆界面加载完毕时
             bool checkload()
             {
                 return GameGlobar.Map["Player"] as GameObject && GameGlobar.Map["DragPanel"] as GameObject;
             }
+            //对复选框添加监听事件（切换横竖屏）
             bool addevent()
             {
                 toggle.onValueChanged.AddListener((isOn) =>

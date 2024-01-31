@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Templete;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+//йс╫гр║╦к
 public class RotationDrag : DragTest
 {
     public ThirdPersonController controller;

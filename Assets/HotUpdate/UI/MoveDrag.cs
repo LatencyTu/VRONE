@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Templete;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+//ÒÆ¶¯Ò¡¸Ë
 public class MoveDrag : DragTest
 {
     public ThirdPersonController controller;

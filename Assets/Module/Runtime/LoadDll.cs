@@ -18,6 +18,7 @@ namespace Templete
         T,
         Hot
     }
+    //项目的入口，加载程序集，执行GameStart的Run
     public class LoadDll : MonoBehaviour
     {
         public Dictionary<string, DllType> dllMap = new Dictionary<string, DllType>()
