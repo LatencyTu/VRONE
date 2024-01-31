@@ -151,6 +151,11 @@ public class WebMgr : MonoBehaviour
     }
     void OnDownLoadComplete()
     {
+        if (GameGlobar.Map.ContainsKey("Player") && GameGlobar.Map.ContainsKey("DragPanel"))
+        {
+            (GameGlobar.Map["Player"] as GameObject).SetActive(false);
+            (GameGlobar.Map["DragPanel"] as GameObject).SetActive(false);
+        }
         AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync("APP" + GetCid.Cid, UnityEngine.SceneManagement.LoadSceneMode.Single);
         LoadingPanelCtrl.Instance().OpenLoadingPanel(handle,$"Loading APP{GetCid.Cid}");
         handle.Completed += (obj) =>

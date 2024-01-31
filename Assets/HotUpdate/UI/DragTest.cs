@@ -12,7 +12,6 @@ public enum PosType
 }
 public class DragTest : MonoBehaviour
 {
-
     public Vector2 start_pos;
     public float duration = 0.5f;
     public float maxDistance = 50;
@@ -21,8 +20,10 @@ public class DragTest : MonoBehaviour
     public Action<BaseEventData> _onDragBegin;
     public Action<BaseEventData> _onDragEnd;
     public RectTransform rect;
+    public GameGlobar GameGlobar;
     private void Awake()
     {
+        GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
 #if UNITY_WEBGL && !UNITY_EDITOR
        CheckIsMobile();
 #endif
@@ -31,31 +32,61 @@ public class DragTest : MonoBehaviour
 #endif
         start_pos = rect.anchoredPosition;
     }
+
     void CheckIsMobile()
     {
         transform.parent.gameObject.SetActive(JsFunction.IsMobileBroswer());
     }
     public void OnDrag(BaseEventData eventData )
     {
-        Vector2 target = start_pos;
-        Vector2 left = Input.touches[0].position;
-        Vector2 right = Input.touches[0].position;
-        foreach (Touch touch in Input.touches)
-        {
-            if (touch.position.x >= right.x) right = touch.position;
-            if (touch.position.x <= left.x) left = touch.position;
-        }
-        if (posType == PosType.Left) target = left;
-        else target = right;
+        Vector2 loaclPos;
+#if UNITY_EDITOR
+        TestDebug.Log("Input.mousePosition" + Input.mousePosition);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rect.parent as RectTransform, Input.mousePosition, GameObject.Find("UICamera").GetComponent<Camera>(), out loaclPos);
+#endif
 
-        float distance = Vector2.Distance(target, start_pos);
-        
-        //if (distance > maxDistance) target = target * (maxDistance / distance);
-        rect.position = start_pos+(target- start_pos);
+#if !UNITY_EDITOR && UNITY_WEBGL
+        if (JsFunction.IsMobileBroswer() && Input.touches.Length>1)
+        {
+            Vector2 target;
+            Vector2 left = Input.touches[0].position;
+            Vector2 right = Input.touches[0].position;
+            bool isLand = (bool)GameGlobar.Map["IsLand"];
+            if (isLand)
+            {
+                foreach (Touch touch in Input.touches)
+                {
+                    if (touch.position.y <= right.y) right = touch.position;
+                    if (touch.position.y >= left.y) left = touch.position;
+                }
+            }
+            else
+            {
+                foreach (Touch touch in Input.touches)
+                {
+                    if (touch.position.x >= right.x) right = touch.position;
+                    if (touch.position.x <= left.x) left = touch.position;
+                }
+            }
+            if (posType == PosType.Left) target = left;
+            else target = right;
+            TestDebug.Log("target" + target);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rect.parent as RectTransform, target, GameObject.Find("UICamera").GetComponent<Camera>(), out loaclPos);
+        }
+        else
+        {
+            TestDebug.Log("Input.mousePosition" + Input.mousePosition);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rect.parent as RectTransform, Input.mousePosition, GameObject.Find("UICamera").GetComponent<Camera>(), out loaclPos);
+            TestDebug.Log("loaclPos" + loaclPos);
+        }
+#endif
+        TestDebug.Log("loaclPos" + loaclPos);
+        rect.anchoredPosition = loaclPos;
         if (_onDrag != null) _onDrag?.Invoke(eventData);
     }
     public void OnDragBegin(BaseEventData eventData)
     {
+        start_pos = rect.anchoredPosition;
         if (_onDragBegin != null) _onDragBegin?.Invoke(eventData);
     }
     public void OnDragEnd(BaseEventData eventData)

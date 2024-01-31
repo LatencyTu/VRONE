@@ -1323,6 +1323,7 @@ MonoBehaviour:
   LoadingPanel: {fileID: 3153224658626056542}
   MainCamera: {fileID: 333870327910086651}
   UICamera: {fileID: 1463381417}
+  EventSystem: {fileID: 0}
 --- !u!114 &8964201957292493994
 MonoBehaviour:
   m_ObjectHideFlags: 0

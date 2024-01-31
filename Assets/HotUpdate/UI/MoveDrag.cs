@@ -8,11 +8,9 @@ using UnityEngine.InputSystem;
 public class MoveDrag : DragTest
 {
     public ThirdPersonController controller;
-    GameGlobar GameGlobar;
     // Start is called before the first frame update
     void Start()
     {
-        GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
         CheckTick.AddRule(findctrl, addevent);
         bool findctrl()
         {

@@ -9,10 +9,8 @@ public class RotationDrag : DragTest
 {
     public ThirdPersonController controller;
     // Start is called before the first frame update
-    GameGlobar GameGlobar;
     void Start()
     {
-        GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
         CheckTick.AddRule(findctrl, addevent);
         bool findctrl()
         {

@@ -48,13 +48,13 @@ namespace StarterAssets
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{
-			GameGlobar GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
-			bool isLand = (bool)GameGlobar.Map["IsLand"];
-			if (isLand)
-            {
-				move = new Vector2(newMoveDirection.y, newMoveDirection.x);
-			}
-            else
+			//GameGlobar GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
+			//bool isLand = (bool)GameGlobar.Map["IsLand"];
+			//if (isLand)
+   //         {
+			//	move = new Vector2(newMoveDirection.y, newMoveDirection.x);
+			//}
+   //         else
             {
 				move = newMoveDirection;
 			}
@@ -62,13 +62,13 @@ namespace StarterAssets
 
 		public void LookInput(Vector2 newLookDirection)
 		{
-			GameGlobar GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
-			bool isLand = (bool)GameGlobar.Map["IsLand"];
-			if (isLand)
-			{
-				look = new Vector2(newLookDirection.y, newLookDirection.x);
-			}
-			else
+			//GameGlobar GameGlobar = GameObject.Find("MainUICanvas").GetComponent<GameGlobar>();
+			//bool isLand = (bool)GameGlobar.Map["IsLand"];
+			//if (isLand)
+			//{
+			//	look = new Vector2(newLookDirection.y, newLookDirection.x);
+			//}
+			//else
 			{
 				look = newLookDirection;
 			}
