@@ -24,6 +24,7 @@ public class AppTest : MonoBehaviour
         new Dropdown.OptionData("GetID"),
         new Dropdown.OptionData("APP1"),
         new Dropdown.OptionData("APP2"),
+        new Dropdown.OptionData("APP3"),
     };
     void Start()
     {
@@ -43,20 +44,8 @@ public class AppTest : MonoBehaviour
             dropdown.options = sceneList;
             dropdown.onValueChanged.AddListener((value)=> 
             {
-                switch (value)
-                {
-                    case 0:
-                        webMgr.StartDownLoad();
-                        break;
-                    case 1:
-                        webMgr.StartAPP1();
-                        break;
-                    case 2:
-                        webMgr.StartAPP2();
-                        break;
-                    default:
-                        break;
-                }
+                if(value!=0) webMgr.StartAPP(value.ToString());
+                else webMgr.StartDownLoad();
             });
             //Ìí¼ÓÑ­»·ÅÐ¶Ï
             CheckTick.AddRule(checkload, addevent);

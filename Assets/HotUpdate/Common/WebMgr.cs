@@ -139,6 +139,11 @@ public class WebMgr : MonoBehaviour
     {
         StartCoroutine(DownLoadCoverImage());
     }
+    public void StartAPP(string cid)
+    {
+        GetCid.Cid = cid;
+        StartCoroutine(DownLoadCoverImage());
+    }
     public void StartAPP1()
     {
         GetCid.Cid = "1";
