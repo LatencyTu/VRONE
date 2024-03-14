@@ -16,12 +16,23 @@ public class ApplyData : MonoBehaviour
     public RawImage rawImage;
     void Start()
     {
-        canvas.GetComponent<RectTransform>().SetParent(GameObject.Find("MainUICanvas").GetComponent<MainUICanvas>().Top.GetComponent<RectTransform>());
-        canvas.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
-        canvas.GetComponent<RectTransform>().localScale = Vector3.one;
-        canvas.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
-        canvas.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
-        canvas.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
+
+        CheckTick.AddRule(check, setPanel);
+        bool check()
+        {
+            return GameObject.Find("Top");
+        }
+        bool setPanel()
+        {
+            canvas.GetComponent<RectTransform>().SetParent(GameObject.Find("Top").GetComponent<RectTransform>());
+            canvas.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
+            canvas.GetComponent<RectTransform>().localScale = Vector3.one;
+            canvas.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
+            canvas.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
+            canvas.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
+            return true;
+        }
+
         ShowCovers();
     }
     private void OnDestroy()
@@ -82,23 +93,43 @@ public class ApplyData : MonoBehaviour
     }
     public void ShowData(int index)
     {
+        LoadingPanelCtrl.Instance().CloseLoadingPanel();
+        canvas.SetActive(true);
         canvas.GetComponent<CanvasGroup>().alpha = 0;
         DOTween.To(() => canvas.GetComponent<CanvasGroup>().alpha, a => canvas.GetComponent<CanvasGroup>().alpha = a, 1, 2);
-        if (SpotDatas.Instance.list[index].dataTypeId == "3")
+        switch (SpotDatas.Instance.list[index].dataTypeId)
         {
-            canvas.SetActive(true);
-            Texture2D texture = new Texture2D(1, 1);
-            texture.LoadImage(SpotDatas.Instance.list[index].data);
-            rawImage.texture = texture;
-            rawImage.rectTransform.sizeDelta = new Vector2(texture.width, texture.height);
-            rawImage.gameObject.SetActive(true);
+            case "3":
+                Texture2D texture = new Texture2D(1, 1);
+                texture.LoadImage(SpotDatas.Instance.list[index].data);
+                rawImage.texture = texture;
+                rawImage.rectTransform.sizeDelta = new Vector2(texture.width, texture.height);
+                rawImage.gameObject.SetActive(true);
+                break;
+            case "4":
+                mediaPlayer.OpenMedia(MediaPathType.AbsolutePathOrURL, SpotDatas.Instance.list[index].dataSource.url);
+                videoDisplayUI.gameObject.SetActive(true);
+                break;
+            default:
+                break;
         }
-        if (SpotDatas.Instance.list[index].dataTypeId == "4")
-        {
-            canvas.SetActive(true);
-            mediaPlayer.OpenMedia(MediaPathType.AbsolutePathOrURL, SpotDatas.Instance.list[index].dataSource.url);
-            videoDisplayUI.gameObject.SetActive(true);
+        //if (SpotDatas.Instance.list[index].dataTypeId == "3")
+        //{
+        //    //canvas.SetActive(true);
+        //    Texture2D texture = new Texture2D(1, 1);
+        //    texture.LoadImage(SpotDatas.Instance.list[index].data);
+        //    rawImage.texture = texture;
+        //    rawImage.rectTransform.sizeDelta = new Vector2(texture.width, texture.height);
+        //    rawImage.gameObject.SetActive(true);
+        //}
+        //if (SpotDatas.Instance.list[index].dataTypeId == "4")
+        //{
+        //    //canvas.SetActive(true);
+        //    //mediaPlayer.OpenMedia(new MediaPath("Test.mp4", MediaPathType.RelativeToStreamingAssetsFolder));
+        //    //mediaPlayer.OpenMedia(new MediaPath("≤‚ ‘.mp4", MediaPathType.RelativeToStreamingAssetsFolder));
+        //    mediaPlayer.OpenMedia(MediaPathType.AbsolutePathOrURL, SpotDatas.Instance.list[index].dataSource.url);
+        //    videoDisplayUI.gameObject.SetActive(true);
 
-        }
+        //}
     }
 }

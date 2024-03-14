@@ -13,6 +13,6 @@ public class ForTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("更新");
+        //Debug.Log("更新");
     }
 }

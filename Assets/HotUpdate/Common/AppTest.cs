@@ -44,7 +44,7 @@ public class AppTest : MonoBehaviour
             dropdown.options = sceneList;
             dropdown.onValueChanged.AddListener((value)=> 
             {
-                if(value!=0) webMgr.StartAPP(value.ToString());
+                if(value!=0) webMgr.StartAPP(value.ToString(), dropdown.options[value].text);
                 else webMgr.StartDownLoad();
             });
             //Ìí¼ÓÑ­»·ÅÐ¶Ï

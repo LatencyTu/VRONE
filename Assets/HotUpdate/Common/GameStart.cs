@@ -20,6 +20,14 @@ public class GameStart : MonoBehaviour
         Input.multiTouchEnabled = true;
         Preload();
     }
+    public static void PlayVideo()
+    {
+        AsyncOperationHandle<GameObject> asyncOperationHandle = Addressables.LoadAssetAsync<GameObject>("Video");
+        asyncOperationHandle.Completed += (handle) =>
+        {
+            GameObject video = Instantiate(handle.Result, GameObject.Find("MainUICanvas").GetComponent<MainUICanvas>().Top.transform);
+        };
+    }
     public static void Preload()
     {
         //º”‘ÿplayer£¨webmgr£¨“°∏ÀΩÁ√Ê
@@ -47,6 +55,7 @@ public class GameStart : MonoBehaviour
             DragPanel = Instantiate(dragHandle.Result, GameObject.Find("MainUICanvas").GetComponent<MainUICanvas>().Top.transform);
             GameGlobar.Map.Add("DragPanel", DragPanel);
             DragPanel.name = "DragPanel"; DragPanel.SetActive(false);
+            //PlayVideo();
             return true;
         }
     }

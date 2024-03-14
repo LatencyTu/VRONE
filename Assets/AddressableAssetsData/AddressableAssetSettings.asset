@@ -35,9 +35,9 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: b0bd7f43ac5ef8042ad70938ebb41655
+    m_Id: 31aba06f58a5552438bac9bf9031bfeb
   m_RemoteCatalogLoadPath:
-    m_Id: 04c5dfd71b74b7346abe862414511248
+    m_Id: d10ad11231cb8584998056d4b355bf29
   m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
@@ -78,7 +78,7 @@ MonoBehaviour:
       - m_Id: 31aba06f58a5552438bac9bf9031bfeb
         m_Value: D:/TuanTuan/UnityBuild/VRONE/Res/[BuildTarget]
       - m_Id: d10ad11231cb8584998056d4b355bf29
-        m_Value: https://61.132.231.213:14014/VRONE/Res/[BuildTarget]
+        m_Value: http://150.158.116.160:5050/UnityBuild/VRONE/Res/[BuildTarget]
     m_ProfileEntryNames:
     - m_Id: 5cc3ce45c5fb1504399762099e726471
       m_Name: BuildTarget
@@ -102,10 +102,10 @@ MonoBehaviour:
       m_Name: Local_Yango.LoadPath
       m_InlineUsage: 0
     - m_Id: 31aba06f58a5552438bac9bf9031bfeb
-      m_Name: Remote_Yango.BuildPath
+      m_Name: RemoteYango.BuildPath
       m_InlineUsage: 0
     - m_Id: d10ad11231cb8584998056d4b355bf29
-      m_Name: Remote_Yango.LoadPath
+      m_Name: RemoteYango.LoadPath
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:

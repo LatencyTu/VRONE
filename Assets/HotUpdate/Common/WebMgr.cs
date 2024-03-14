@@ -10,6 +10,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using Templete;
+using System.Text.RegularExpressions;
 
 public class WebMgr : MonoBehaviour
 {
@@ -21,27 +22,29 @@ public class WebMgr : MonoBehaviour
     }
     interface IInitializeID
     {
-        public void InitializeID(string id);
+        public void InitializeID(string id, string name = "");
     }
     public class CAID: IInitializeID
     {
         public string company_app_id;
-        public void InitializeID(string id)
+        public string name;
+        public void InitializeID(string id,string name)
         {
             company_app_id = id;
+            this.name = name;
         }
     }
     public class DataID: IInitializeID
     {
         public string data_source_id;
 
-        public void InitializeID(string id)
+        public void InitializeID(string id, string name = "")
         {
             data_source_id = id;
         }
     }
 
-    IEnumerator DownloadJson<T,U>(string ID,string serverUrl, Action<U> myAction) where T : IInitializeID,new()
+    IEnumerator DownloadJson<T,U>(string ID,string serverUrl, Action<U> myAction, string name = "") where T : IInitializeID,new()
     {
 
         //if (typeof(T) == typeof(CAID))
@@ -56,10 +59,18 @@ public class WebMgr : MonoBehaviour
         //}
         //else { TestDebug.Log("type error"); yield break; }
         T id = new T() ;
-
-        (id as IInitializeID)?.InitializeID(ID);
+        if (name != "")
+        {
+            (id as IInitializeID)?.InitializeID(ID, name);
+        }
+        else
+        {
+            (id as IInitializeID)?.InitializeID(ID);
+        }
 
         string jsonString = JsonMapper.ToJson(id);
+        Regex reg = new Regex(@"(?i)\\[uU]([0-9a-f]{4})");
+        jsonString = reg.Replace(jsonString, delegate (Match m) { return ((char)Convert.ToInt32(m.Groups[1].Value, 16)).ToString(); });
 
         TestDebug.Log("上传json"+jsonString);
 
@@ -83,18 +94,25 @@ public class WebMgr : MonoBehaviour
     }
     IEnumerator DownloadJsons()
     {
-        yield return StartCoroutine(DownloadJson<CAID, LoadingData>(GetCid.Cid, "http://121.4.240.32:8080/VRdemo/loading/AppSetting", 
-            a => { LoadingData.Instance = a;}));
-        yield return StartCoroutine(DownloadJson<CAID, SpotDatas>(GetCid.Cid, "http://121.4.240.32:8080/VRdemo/loading/spot", 
-            a => { SpotDatas.Instance = a;}));
-        for (int i = 0; i < SpotDatas.Instance.list.Length; i++)
+        yield return StartCoroutine(DownloadJson<CAID, LoadingData>(GetCid.Cid, "http://175.178.124.133:8010/VRdemo/unity/appSetting", 
+            a => { LoadingData.Instance = a;}, GetCid.Name));
+        yield return StartCoroutine(DownloadJson<CAID, SpotDatas>(GetCid.Cid, "http://175.178.124.133:8010/VRdemo/unity/dataSource",
+            a => { SpotDatas.Instance = a; }, GetCid.Name));
+        if (SpotDatas.Instance != null)
         {
-            if (SpotDatas.Instance.list[i].dataTypeId == "3")
-            { yield return StartCoroutine(DownloadJson<DataID, DataSource>(SpotDatas.Instance.list[i].dataSourceId, "http://121.4.240.32:8080/VRdemo/img/getImageData", 
-                a => { SpotDatas.Instance.list[i].dataSource = a; TestDebug.Log("图片地址为"+SpotDatas.Instance.list[i].dataSource.url); })); }
-            if (SpotDatas.Instance.list[i].dataTypeId == "4")
-            { yield return StartCoroutine(DownloadJson<DataID, DataSource>(SpotDatas.Instance.list[i].dataSourceId, "http://121.4.240.32:8080/VRdemo/video/getVideoData", 
-                a => { SpotDatas.Instance.list[i].dataSource = a; TestDebug.Log("视频地址为" + SpotDatas.Instance.list[i].dataSource.url); })); }
+            for (int i = 0; i < SpotDatas.Instance.list.Length; i++)
+            {
+                if (SpotDatas.Instance.list[i].dataTypeId == "3")
+                {
+                    yield return StartCoroutine(DownloadJson<DataID, DataSource>(SpotDatas.Instance.list[i].dataSourceId, "http://175.178.124.133:8010/VRdemo/unity/getImageData",
+                      a => { SpotDatas.Instance.list[i].dataSource = a; TestDebug.Log("图片地址为" + SpotDatas.Instance.list[i].dataSource.url); }));
+                }
+                if (SpotDatas.Instance.list[i].dataTypeId == "4")
+                {
+                    yield return StartCoroutine(DownloadJson<DataID, DataSource>(SpotDatas.Instance.list[i].dataSourceId, "http://175.178.124.133:8010/VRdemo/unity/getVideoData",
+                      a => { SpotDatas.Instance.list[i].dataSource = a; TestDebug.Log("视频地址为" + SpotDatas.Instance.list[i].dataSource.url); }));
+                }
+            }
         }
     }
     IEnumerator DownLoadCoverImage()
@@ -122,6 +140,7 @@ public class WebMgr : MonoBehaviour
     {
         TestDebug.Log("开始在" + url + "下载数据");
         UnityWebRequest req = UnityWebRequest.Get(url);
+        LoadingPanelCtrl.Instance().OpenLoadingPanel(req, url, false);
         //LoadingPanelCtrl.Instance().OpenLoadingPanel(req, url,false);
         yield return req.SendWebRequest();
         if (req.result == UnityWebRequest.Result.Success)
@@ -139,19 +158,10 @@ public class WebMgr : MonoBehaviour
     {
         StartCoroutine(DownLoadCoverImage());
     }
-    public void StartAPP(string cid)
+    public void StartAPP(string cid,string name)
     {
         GetCid.Cid = cid;
-        StartCoroutine(DownLoadCoverImage());
-    }
-    public void StartAPP1()
-    {
-        GetCid.Cid = "1";
-        StartCoroutine(DownLoadCoverImage());
-    }
-    public void StartAPP2()
-    {
-        GetCid.Cid = "2";
+        GetCid.Name = name;
         StartCoroutine(DownLoadCoverImage());
     }
     void OnDownLoadComplete()
@@ -177,6 +187,7 @@ public class WebMgr : MonoBehaviour
                 }
                 bool active()
                 {
+                    (GameGlobar.Map["Player"] as GameObject).transform.Find("PlayerArmature").localPosition = new Vector3(-0.24f, -3.01f, -6.693f);
                     (GameGlobar.Map["Player"] as GameObject).SetActive(true);
                     (GameGlobar.Map["DragPanel"] as GameObject).SetActive(true);
                     return true;
